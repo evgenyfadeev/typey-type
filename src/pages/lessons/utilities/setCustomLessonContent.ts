@@ -1,6 +1,6 @@
-import Zipper from "../../../utils/zipper";
+import Zipper from "utils/zipper";
 
-import type { CustomLesson, MaterialItem } from "../../../types";
+import type { CustomLesson, MaterialItem } from "types";
 
 function setCustomLessonContent(material: MaterialItem[]) {
   const customisedLesson: CustomLesson = {

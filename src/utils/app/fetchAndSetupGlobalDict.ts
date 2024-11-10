@@ -1,14 +1,14 @@
-import LATEST_PLOVER_DICT_NAME from "../../constant/latestPloverDictName";
-import SOURCE_NAMESPACES from "../../constant/sourceNamespaces";
-import { getLatestPloverDict, getTypeyTypeDict } from "../getData";
-import createAGlobalLookupDictionary from "../transformingDictionaries/createAGlobalLookupDictionary";
-import { AffixList } from "../affixList";
-import { loadPersonalDictionariesFromLocalStorage } from "../typey-type";
+import LATEST_PLOVER_DICT_NAME from "constant/latestPloverDictName";
+import SOURCE_NAMESPACES from "constant/sourceNamespaces";
+import { getLatestPloverDict, getTypeyTypeDict } from "utils/getData";
+import createAGlobalLookupDictionary from "utils/transformingDictionaries/createAGlobalLookupDictionary";
+import { AffixList } from "utils/affixList";
+import { loadPersonalDictionariesFromLocalStorage } from "utils/typey-type";
 
 import type {
   PersonalDictionaryNameAndContents,
   ImportedPersonalDictionaries,
-} from "../../types";
+} from "types";
 
 // @ts-ignore TODO
 let loadingPromise = null;

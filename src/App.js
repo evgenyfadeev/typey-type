@@ -991,11 +991,10 @@ class App extends Component {
           }>
             <AppRoutes
               appProps={{
-                location: this.props.location,
                 completedMaterial,
                 presentedMaterialCurrentItem,
-                stateLesson,
-                upcomingMaterial
+                upcomingMaterial,
+                totalWordCount: stateLesson.presentedMaterial.length,
               }}
               appState={this.state}
             />

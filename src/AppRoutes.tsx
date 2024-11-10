@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Route, Switch } from "react-router-dom";
+import { useLocation, Route, Switch } from "react-router-dom";
 import DocumentTitle from "react-document-title";
 import Loadable from "react-loadable";
 import PageLoading from "./components/PageLoading";
@@ -19,7 +19,6 @@ import {
   ActualTypedText,
   ImportedPersonalDictionaries,
 } from "./types";
-import { Location } from "history";
 import { CustomLessonMaterialValidationState } from "./pages/lessons/custom/components/CustomLessonIntro";
 
 const AsyncBreak = Loadable({
@@ -152,14 +151,14 @@ type Props = {
 };
 
 type AppProps = {
-  location: Location;
   completedMaterial: MaterialText[];
   presentedMaterialCurrentItem: MaterialItem;
-  stateLesson: Lesson;
+  totalWordCount: number;
   upcomingMaterial: unknown;
 };
 
 const AppRoutes: React.FC<Props> = ({ appProps, appState }) => {
+  const location = useLocation();
   return (
     <AnnouncerController>
       <Announcer />
@@ -287,7 +286,7 @@ const AppRoutes: React.FC<Props> = ({ appProps, appState }) => {
                       appState.globalLookupDictionaryLoaded
                     }
                     lessonpath="flashcards"
-                    locationpathname={appProps.location.pathname}
+                    locationpathname={location.pathname}
                     personalDictionaries={appState.personalDictionaries}
                   />
                 </DocumentTitle>
@@ -399,7 +398,7 @@ const AppRoutes: React.FC<Props> = ({ appProps, appState }) => {
                         appState.totalNumberOfHintedWords
                       }
                       totalWordCount={
-                        appProps.stateLesson.presentedMaterial.length
+                        appProps.totalWordCount
                       }
                       upcomingPhrases={appProps.upcomingMaterial}
                       {...props}
@@ -413,7 +412,7 @@ const AppRoutes: React.FC<Props> = ({ appProps, appState }) => {
             render={(props) => (
               <div>
                 <DocumentTitle title={"Typey Type | Page not found"}>
-                  <AsyncPageNotFound location={props.location} />
+                  <AsyncPageNotFound location={location} />
                 </DocumentTitle>
               </div>
             )}

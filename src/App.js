@@ -352,13 +352,15 @@ class App extends Component {
     });
   }
 
-  setupLesson(lessonProps) {
+  setupLesson(statePatch) {
+    const newState = Object.assign({}, this.state, statePatch);
     const revisionMode = this.props.revisionMode;
-    const revisionMaterial = this.state.revisionMaterial;
+    const revisionMaterial = newState.revisionMaterial;
+
     const userSettings = this.props.userSettings;
-    const lessonPath = this.state.lesson.path;
-    let newLesson = Object.assign({}, this.state.lesson);
-    const prevLessonsProgress = this.state.lessonsProgress;
+    const lessonPath = newState.lesson.path;
+    let newLesson = Object.assign({}, newState.lesson);
+    const prevLessonsProgress = newState.lessonsProgress;
 
     const limitNumberOfWords = userSettings.limitNumberOfWords;
     const startFromWord = userSettings.startFromWord;
@@ -387,10 +389,10 @@ class App extends Component {
     }
 
     // Filter lesson by familiarity:
-    newLesson.presentedMaterial = filterByFamiliarity.call(this, newLesson.presentedMaterial, this.state.metWords, userSettings, revisionMode);
+    newLesson.presentedMaterial = filterByFamiliarity.call(this, newLesson.presentedMaterial, newState.metWords, userSettings, revisionMode);
 
     // Sort lesson:
-    newLesson.presentedMaterial = sortLesson.call(this, newLesson.presentedMaterial, this.state.metWords, userSettings);
+    newLesson.presentedMaterial = sortLesson.call(this, newLesson.presentedMaterial, newState.metWords, userSettings);
 
     // Apply range (start from & limit) to lesson:
     if (revisionMode && limitNumberOfWords > 0) {
@@ -435,6 +437,7 @@ class App extends Component {
 
     // Reset lesson state for starting lesson:
     this.setState({
+      ...newState,
       actualText: ``,
       currentPhraseAttempts: [],
       currentLessonStrokes: [],
@@ -455,7 +458,6 @@ class App extends Component {
       totalNumberOfHintedWords: 0,
       lesson: newLesson,
       currentPhraseID: 0,
-      ...lessonProps
     });
   }
 
